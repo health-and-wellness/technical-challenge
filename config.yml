@@ -1,4 +1,8 @@
 development:
-  password: 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
-  theme_id: "114845843618"
-  store: jimmyjane-technical-challenge.myshopify.com
+  password: ${CHALLENGE_JJ_API_PW}
+  theme_id: "114890539170"
+  store: ${CHALLENGE_JJ_STORE_DOMAIN}
+production:
+  password: ${CHALLENGE_JJ_API_PW}
+  theme_id: "114484445346"
+  store: ${CHALLENGE_JJ_STORE_DOMAIN}
