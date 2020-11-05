@@ -9291,7 +9291,10 @@ theme.StoreAvailability = (function() {
   StoreAvailability.prototype = Object.assign({}, StoreAvailability.prototype, {
     updateContent: function(variantId) {
       var variantSectionUrl =
-        '/variants/' + variantId + '/?section_id=store-availability';
+        this.container.dataset.baseUrl +
+        '/variants/' +
+        variantId +
+        '/?section_id=store-availability';
       var self = this;
 
       var storeAvailabilityModalOpen = self.container.querySelector(
@@ -9313,6 +9316,7 @@ theme.StoreAvailability = (function() {
             return;
           }
           self.container.innerHTML = storeAvailabilityHTML;
+          self.container.innerHTML = self.container.firstElementChild.innerHTML;
           self.container.style.opacity = 1;
 
           // Need to query this again because we updated the DOM
