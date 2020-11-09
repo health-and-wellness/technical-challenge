@@ -6,12 +6,29 @@
   {% endif %}
 
   {%- assign blog = blogs[section.settings.blog] -%}
-
+  
+  {% comment %}Assign articles to a variable for reuse{% endcomment %}
+  {% assign articles = blog.articles %}
+  
+  {% comment %}Iterate through articles to check for one containing the tag "first" (Added in the admin panel for blog posts)
+  			   and assign to a variable
+  {% endcomment %}
+  {% for article in articles %}
+  	{% if article.tags.first %}
+  		{% assign first = article %}
+  	{% endif %}	
+  {% endfor %}
+  {% comment %}Add the initial list of articles to the end of the declared first article, and then filter out the duplicated article{% endcomment %}
+  {% assign sortedArticles = first | concat: articles | uniq %}
+  
   {% unless blog.articles_count == 0 %}
+  	
     <ul class="grid grid--uniform grid--blog">
-      {% for article in blog.articles limit: section.settings.post_limit %}
-        <li class="grid__item medium-up--one-third">
-          <article aria-labelledby="FeaturedBlogTitle-{{ forloop.index0 }}-{{ section.id }}">
+      {% comment %}Use new sorted list of articles, displaying the article tagged "first" followed by the default created{% endcomment %}
+      {% for article in sortedArticles limit: section.settings.post_limit %}
+      	
+       <li class="grid__item medium-up--one-third">    	
+         <article aria-labelledby="FeaturedBlogTitle-{{ forloop.index0 }}-{{ section.id }}">
             <header>
               <a href="{{ article.url }}" class="article__link">
                 {% if article.image %}
@@ -67,9 +84,11 @@
                 <div class="article__tags rte">
                   <ul class="list--inline" aria-label="{{ 'blogs.article.tags' | t }}">
                     {% for tag in article.tags %}
+                      {% unless tag == "first" %}
                       <li>
                         <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="article__grid-tag">{{ tag }}</a>
                       </li>
+                      {% endunless %}
                     {% endfor %}
                   </ul>
                 </div>
