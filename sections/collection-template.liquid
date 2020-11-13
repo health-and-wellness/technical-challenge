@@ -84,7 +84,12 @@
                       <select class="filters-toolbar__input hidden" name="FilterTags" id="FilterTags" aria-describedby="a11y-refresh-page-message a11y-selection-message" data-select-input>
                         <option value="{{ collection.url }}">{{ 'collections.filters.all_tags' | t }}</option>
                         {% for tag in collection.all_tags %}
-                          {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
+                        
+                        {%comment%} First check if this is the "For Him" page, then if it is, skip the "Anal" and "Clitoral" tags. {%endcomment%}
+                        {%- if collection.title contains "Him" -%}
+                        {%- if tag == "anal" or tag == "clitoral" -%} {%- continue -%} {%- endif -%}{%- endif -%}
+                        
+                        {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
                           <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
                         {% endfor %}
                       </select>
