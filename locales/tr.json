@@ -202,7 +202,7 @@
   "collections": {
     "general": {
       "view_all": "Tümünü görüntüle",
-      "view_all_label": "{{ collection_name }} koleksiyonunda tüm ürünleri görüntüle",
+      "view_all_label": "{{ collection_name }} koleksiyonundaki tüm ürünleri görüntüle",
       "no_matches": "Üzgünüz, bu koleksiyonda ürün yok",
       "items_with_count": {
         "one": "{{ count }} ürün",

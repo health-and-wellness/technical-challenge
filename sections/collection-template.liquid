@@ -84,8 +84,26 @@
                       <select class="filters-toolbar__input hidden" name="FilterTags" id="FilterTags" aria-describedby="a11y-refresh-page-message a11y-selection-message" data-select-input>
                         <option value="{{ collection.url }}">{{ 'collections.filters.all_tags' | t }}</option>
                         {% for tag in collection.all_tags %}
-                          {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
-                          <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+                        
+<!--                     removing clitoral and vaginal from only for him collection -->
+ 						 {% if tag !='clitoral'%}
+                        	{% if tag !='vaginal'%}
+     					  {% if collection.url =='/collections/for-him' %}
+                              {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
+                              <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+                          {% endif %}
+                         {% endif %}
+                        {% endif %}
+                        
+<!--                         allow options for show hide by url  -->
+                          {% if collection.url =='/collections/for-her' %}
+                        	{%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
+                            <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+                          {% endif %}
+                         {% if collection.url =='/collections/for-couples' %}
+                            {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
+                            <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+                         {% endif %}
                         {% endfor %}
                       </select>
                       {% include 'icon-chevron-down' %}
@@ -95,7 +113,7 @@
               {% endif %}
 
               {% if section.settings.sort_enable %}
-                <div class="filters-toolbar__item-child">
+              <div class="filters-toolbar__item-child">
                   {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
                   <label class="filters-toolbar__label select-label" for="SortBy">{{ 'collections.sorting.title' | t }}</label>
                   <div class="filters-toolbar__input-wrapper select-group">
