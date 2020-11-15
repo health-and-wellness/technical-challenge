@@ -38,7 +38,7 @@
         <div class="collection-hero__title-wrapper">
           <h1 class="collection-hero__title page-width">
               <span class="visually-hidden">{{ 'collections.general.collection_label' | t }}: </span>
-              {{ collection.title }}
+              
           </h1>
         </div>
       </div>
@@ -78,14 +78,26 @@
             <div class="filters-toolbar__item-wrapper">
               {% if section.settings.tags_enable %}
                 {% unless collection.all_tags.size == 0 %}
+              	
                   <div class="filters-toolbar__item-child">
                     <label class="filters-toolbar__label select-label" for="FilterTags">{{ 'collections.filters.title_tags' | t }}</label>
                     <div class="filters-toolbar__input-wrapper select-group">
                       <select class="filters-toolbar__input hidden" name="FilterTags" id="FilterTags" aria-describedby="a11y-refresh-page-message a11y-selection-message" data-select-input>
                         <option value="{{ collection.url }}">{{ 'collections.filters.all_tags' | t }}</option>
+                  		{% comment %}@TODO: It may be possible to check collection here id, and declare tags variable that is filtered with respect to collection{% endcomment %}
                         {% for tag in collection.all_tags %}
-                          {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
-                          <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+                          {% comment %}Run conditional block to check if the title of the collection currently being templated is For Him{% endcomment %}
+                          {% if collection.title == "For Him" %}
+                        	  {% comment %}In this case where the collection is For Him, only add if the tag is not equal to anal or clitoral{% endcomment %}
+                              {% unless tag == "anal" or tag == "clitoral" %}
+                                  {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
+                                  <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+                              {% endunless %}
+                          {% comment %}If the collection is any of the others, iterate over all tags indiscriminately{% endcomment %}
+                          {% else %}
+                              {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
+                              <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+                          {% endif %}
                         {% endfor %}
                       </select>
                       {% include 'icon-chevron-down' %}
