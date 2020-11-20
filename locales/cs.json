@@ -139,9 +139,8 @@
       "back_to_blog": "Zpět do {{ title }}",
       "tags": "Štítky",
       "article_with_count": {
-        "one": "1 článek",
+        "one": "{{ count }} článek",
         "other": "Počet článků: {{ count }}",
-        "zero": "0 článků",
         "few": "Počet článků: {{ count }}",
         "many": "Počet článků: {{ count }}"
       }

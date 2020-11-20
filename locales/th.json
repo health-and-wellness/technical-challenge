@@ -135,9 +135,8 @@
       "back_to_blog": "กลับไปยัง {{ title }}",
       "tags": "แท็ก",
       "article_with_count": {
-        "one": "1 บทความ",
-        "other": "{{ count }} บทความ",
-        "zero": "0 บทความ"
+        "one": "{{ count }} บทความ",
+        "other": "{{ count }} บทความ"
       }
     },
     "comments": {

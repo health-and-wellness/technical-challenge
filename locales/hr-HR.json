@@ -160,8 +160,7 @@
       "back_to_blog": "Natrag na {{ title }}",
       "tags": "Oznake",
       "article_with_count": {
-        "zero": "0 artikla",
-        "one": "1 artikl",
+        "one": "Broj artikala: {{ count }}",
         "other": "Broj artikala: {{ count }}",
         "few": "Broj artikala: {{ count }}"
       }

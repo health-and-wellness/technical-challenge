@@ -135,9 +135,8 @@
       "back_to_blog": "{{ title }} 로 돌아가기",
       "tags": "태그",
       "article_with_count": {
-        "one": "1개 기사",
-        "other": "{{ count }} 기사",
-        "zero": "문서 0개"
+        "one": "문서 {{ count }}개",
+        "other": "{{ count }} 기사"
       }
     },
     "comments": {

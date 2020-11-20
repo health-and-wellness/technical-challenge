@@ -139,9 +139,8 @@
       "back_to_blog": "Powrót do {{ title }}",
       "tags": "Tagi",
       "article_with_count": {
-        "one": "1 artykuł",
+        "one": "{{ count }} artykuł",
         "other": "{{ count }} artykuły(-ów)",
-        "zero": "0 artykułów",
         "few": "{{ count }} artykuły(-ów)",
         "many": "{{ count }} artykuły(-ów)"
       }

@@ -135,8 +135,7 @@
       "back_to_blog": "Vissza ide: {{ title }}",
       "tags": "Címkék",
       "article_with_count": {
-        "zero": "0 cikk",
-        "one": "1 cikk",
+        "one": "{{ count }} termék",
         "other": "{{ count }} cikk"
       }
     },

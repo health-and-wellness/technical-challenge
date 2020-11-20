@@ -6639,6 +6639,7 @@ theme.Cart = (function() {
     cartItemRegularPrice: '[data-cart-item-regular-price]',
     cartItemTitle: '[data-cart-item-title]',
     cartItemOption: '[data-cart-item-option]',
+    cartItemSellingPlanName: '[data-cart-item-selling-plan-name]',
     cartLineItems: '[data-cart-line-items]',
     cartNote: '[data-cart-notes]',
     cartQuantityErrorMessage: '[data-cart-quantity-error-message]',
@@ -6685,8 +6686,8 @@ theme.Cart = (function() {
     this.container = container;
     this.thumbnails = this.container.querySelectorAll(selectors.thumbnails);
     this.quantityInputs = this.container.querySelectorAll(selectors.inputQty);
-
-    this.ajaxEnabled = this.container.getAttribute('data-ajax-enabled');
+    this.ajaxEnabled =
+      this.container.getAttribute('data-ajax-enabled') === 'true';
 
     this._handleInputQty = theme.Helpers.debounce(
       this._handleInputQty.bind(this),
@@ -6755,6 +6756,10 @@ theme.Cart = (function() {
 
       this.itemPropertyTemplate = this.itemTemplate
         .querySelector(selectors.cartItemProperty)
+        .cloneNode(true);
+
+      this.itemSellingPlanNameTemplate = this.itemTemplate
+        .querySelector(selectors.cartItemSellingPlanName)
         .cloneNode(true);
     },
 
@@ -6995,10 +7000,15 @@ theme.Cart = (function() {
           cartItemTitle.textContent = item.product_title;
           cartItemTitle.setAttribute('href', item.url);
 
+          var selling_plan_name = item.selling_plan_allocation
+            ? item.selling_plan_allocation.selling_plan.name
+            : null;
+
           var productDetailsList = this._createProductDetailsList(
             item.product_has_only_default_variant,
             item.options_with_values,
-            item.properties
+            item.properties,
+            selling_plan_name
           );
 
           this._setProductDetailsList(itemNode, productDetailsList);
@@ -7173,13 +7183,20 @@ theme.Cart = (function() {
     _createProductDetailsList: function(
       product_has_only_default_variant,
       options,
-      properties
+      properties,
+      selling_plan_name
     ) {
       var optionsPropertiesHTML = [];
 
       if (!product_has_only_default_variant) {
         optionsPropertiesHTML = optionsPropertiesHTML.concat(
           this._getOptionList(options)
+        );
+      }
+
+      if (selling_plan_name) {
+        optionsPropertiesHTML = optionsPropertiesHTML.concat(
+          this._getSellingPlanName(selling_plan_name)
         );
       }
 
@@ -7209,29 +7226,33 @@ theme.Cart = (function() {
       var propertiesArray =
         properties !== null ? Object.entries(properties) : [];
 
-      return propertiesArray.map(
+      var filteredPropertiesArray = propertiesArray.filter(function(property) {
+        // Line item properties prefixed with an underscore are not to be displayed
+        // if the property value has a length of 0 (empty), don't display it
+        if (property[0].charAt(0) === '_' || property[1].length === 0) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+
+      return filteredPropertiesArray.map(
         function(property) {
           var propertyElement = this.itemPropertyTemplate.cloneNode(true);
 
-          // Line item properties prefixed with an underscore are not to be displayed
-          if (property[0].charAt(0) === '_') return;
-
-          // if the property value has a length of 0 (empty), don't display it
-          if (property[1].length === 0) return;
-
           propertyElement.querySelector(
             selectors.cartItemPropertyName
-          ).textContent = property[0];
+          ).textContent = property[0] + ': ';
 
           if (property[0].indexOf('/uploads/') === -1) {
             propertyElement.querySelector(
               selectors.cartItemPropertyValue
-            ).textContent = ': ' + property[1];
+            ).textContent = property[1];
           } else {
             propertyElement.querySelector(
               selectors.cartItemPropertyValue
             ).innerHTML =
-              ': <a href="' +
+              '<a href="' +
               property[1] +
               '"> ' +
               property[1].split('/').pop() +
@@ -7243,6 +7264,17 @@ theme.Cart = (function() {
           return propertyElement;
         }.bind(this)
       );
+    },
+
+    _getSellingPlanName: function(selling_plan_name) {
+      var sellingPlanNameElement = this.itemSellingPlanNameTemplate.cloneNode(
+        true
+      );
+
+      sellingPlanNameElement.textContent = selling_plan_name;
+      sellingPlanNameElement.classList.remove(classes.hide);
+
+      return sellingPlanNameElement;
     },
 
     _createItemPrice: function(original_price, final_price) {
@@ -8353,6 +8385,10 @@ theme.Product = (function() {
 
       var quantity = this.quantityInput ? this.quantityInput.value : 1;
 
+      var selling_plan_name = item.selling_plan_allocation
+        ? item.selling_plan_allocation.selling_plan.name
+        : null;
+
       this.cartPopupTitle.textContent = item.product_title;
       this.cartPopupQuantity.textContent = quantity;
       this.cartPopupQuantityLabel.textContent = theme.strings.quantityLabel.replace(
@@ -8365,7 +8401,8 @@ theme.Product = (function() {
       this._setCartPopupProductDetails(
         item.product_has_only_default_variant,
         item.options_with_values,
-        item.properties
+        item.properties,
+        selling_plan_name
       );
 
       fetch('/cart.js')
@@ -8444,7 +8481,8 @@ theme.Product = (function() {
     _setCartPopupProductDetails: function(
       product_has_only_default_variant,
       options,
-      properties
+      properties,
+      selling_plan_name
     ) {
       this.cartPopupProductDetails =
         this.cartPopupProductDetails ||
@@ -8454,6 +8492,11 @@ theme.Product = (function() {
       if (!product_has_only_default_variant) {
         variantPropertiesHTML =
           variantPropertiesHTML + this._getVariantOptionList(options);
+      }
+
+      if (selling_plan_name) {
+        variantPropertiesHTML =
+          variantPropertiesHTML + this._getSellingPlanHTML(selling_plan_name);
       }
 
       if (properties !== null && Object.keys(properties).length !== 0) {
@@ -8508,6 +8551,15 @@ theme.Product = (function() {
       });
 
       return propertyListHTML;
+    },
+
+    _getSellingPlanHTML: function(selling_plan_name) {
+      var sellingPlanHTML =
+        '<li class="product-details__item product-details__item--property">' +
+        selling_plan_name +
+        '</li>';
+
+      return sellingPlanHTML;
     },
 
     _setCartQuantity: function(quantity) {
@@ -9291,7 +9343,10 @@ theme.StoreAvailability = (function() {
   StoreAvailability.prototype = Object.assign({}, StoreAvailability.prototype, {
     updateContent: function(variantId) {
       var variantSectionUrl =
-        '/variants/' + variantId + '/?section_id=store-availability';
+        this.container.dataset.baseUrl +
+        '/variants/' +
+        variantId +
+        '/?section_id=store-availability';
       var self = this;
 
       var storeAvailabilityModalOpen = self.container.querySelector(
@@ -9313,6 +9368,7 @@ theme.StoreAvailability = (function() {
             return;
           }
           self.container.innerHTML = storeAvailabilityHTML;
+          self.container.innerHTML = self.container.firstElementChild.innerHTML;
           self.container.style.opacity = 1;
 
           // Need to query this again because we updated the DOM

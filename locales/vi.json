@@ -135,8 +135,7 @@
       "back_to_blog": "Quay lại {{ title }}",
       "tags": "Thẻ",
       "article_with_count": {
-        "zero": "0 bài viết",
-        "one": "1 bài viết",
+        "one": "{{ count }} bài viết",
         "other": "{{ count }} bài viết"
       }
     },

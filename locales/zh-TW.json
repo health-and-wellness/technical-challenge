@@ -135,9 +135,8 @@
       "back_to_blog": "返回 {{ title }}",
       "tags": "標籤",
       "article_with_count": {
-        "one": "1 篇文章",
-        "other": "{{ count }} 篇文章",
-        "zero": "0 篇文章"
+        "one": "{{ count }} 篇文章",
+        "other": "{{ count }} 篇文章"
       }
     },
     "comments": {

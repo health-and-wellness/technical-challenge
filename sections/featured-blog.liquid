@@ -6,11 +6,14 @@
   {% endif %}
 
   {%- assign blog = blogs[section.settings.blog] -%}
-
+  
   {% unless blog.articles_count == 0 %}
     <ul class="grid grid--uniform grid--blog">
       {% for article in blog.articles limit: section.settings.post_limit %}
-        <li class="grid__item medium-up--one-third">
+        {% for tag in article.tags %}
+          {% if tag == 'pinned' %}{% assign pinnedArticle = article %}{% endif %}
+        {% endfor %}
+        <li class="grid__item medium-up--one-third" {% if pinnedArticle %}{% endif %}>
           <article aria-labelledby="FeaturedBlogTitle-{{ forloop.index0 }}-{{ section.id }}">
             <header>
               <a href="{{ article.url }}" class="article__link">

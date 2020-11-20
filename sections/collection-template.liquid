@@ -85,7 +85,7 @@
                         <option value="{{ collection.url }}">{{ 'collections.filters.all_tags' | t }}</option>
                         {% for tag in collection.all_tags %}
                           {%- assign new_url = tag | link_to_tag: tag | split: 'href="' | last | split: '"' | first -%}
-                          <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}>{{ tag }}</option>
+                          <option value="{{ new_url }}"{% if current_tags contains tag %} selected="selected"{% endif %}  {% if tag == 'clitoral' or tag == 'vaginal' %}hidden{% endif %}>{{ tag }}</option>
                         {% endfor %}
                       </select>
                       {% include 'icon-chevron-down' %}
@@ -106,7 +106,7 @@
                       data-select-input
                     >
                       {%- for option in collection.sort_options -%}
-                        <option value="{{ option.value }}" {% if option.value == sort_by %}selected="selected"{% endif %}>{{ option.name }}</option>
+                        <option value="{{ option.value }}" {% if option.value == "/collections/for-him/clitoral" %} console.log('hello') {% endif %} {% if option.value == sort_by %}selected="selected"{% endif %}>{{ option.name }}</option>
                       {%- endfor -%}
                     </select>
                     {% include 'icon-chevron-down' %}

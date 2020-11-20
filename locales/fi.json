@@ -135,9 +135,8 @@
       "back_to_blog": "Takaisin kohteeseen {{ title }}",
       "tags": "Tunnisteet",
       "article_with_count": {
-        "one": "1 artikkeli",
-        "other": "{{ count }} artikkelia",
-        "zero": "0 artikkelia"
+        "one": "{{ count }} artikkeli",
+        "other": "{{ count }} artikkelia"
       }
     },
     "comments": {

@@ -139,8 +139,7 @@
       "back_to_blog": "Späť na {{ title }}",
       "tags": "Značky",
       "article_with_count": {
-        "zero": "0 článkov",
-        "one": "1 článok",
+        "one": "{{ count }} článok",
         "other": "Počet článkov: {{ count }}",
         "few": "Počet článkov: {{ count }}",
         "many": "Počet článkov: {{ count }}"

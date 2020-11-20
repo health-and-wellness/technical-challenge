@@ -135,9 +135,8 @@
       "back_to_blog": "Tilbake til {{ title }}",
       "tags": "Merker",
       "article_with_count": {
-        "one": "1 artikkel",
-        "other": "{{ count }} artikler",
-        "zero": "0 artikler"
+        "one": "{{ count }} artikkel",
+        "other": "{{ count }} artikler"
       }
     },
     "comments": {

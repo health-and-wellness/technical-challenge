@@ -135,9 +135,8 @@
       "back_to_blog": "{{ title }}に戻る",
       "tags": "タグ",
       "article_with_count": {
-        "one": "記事1件",
-        "other": "記事{{ count }}件",
-        "zero": "記事0件"
+        "one": "記事{{ count }}件",
+        "other": "記事{{ count }}件"
       }
     },
     "comments": {

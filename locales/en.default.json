@@ -135,8 +135,7 @@
       "back_to_blog": "Back to {{ title }}",
       "tags": "Tags",
       "article_with_count": {
-        "zero": "0 articles",
-        "one": "1 article",
+        "one": "{{ count }} article",
         "other": "{{ count }} articles"
       }
     },

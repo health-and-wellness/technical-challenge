@@ -135,9 +135,8 @@
       "back_to_blog": "Tilbage til {{ title }}",
       "tags": "Tags",
       "article_with_count": {
-        "one": "1 artikel",
-        "other": "{{ count }} artikler",
-        "zero": "0 artikler"
+        "one": "{{ count }} artikel",
+        "other": "{{ count }} artikler"
       }
     },
     "comments": {

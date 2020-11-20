@@ -162,8 +162,7 @@
       "back_to_blog": "Nazaj na {{ title }}",
       "tags": "Oznake",
       "article_with_count": {
-        "zero": "0 člankov",
-        "one": "1 članek",
+        "one": "{{ count }} članek",
         "other": "Toliko člankov: {{ count }}",
         "few": "Toliko člankov: {{ count }}",
         "two": "Toliko člankov: {{ count }}"

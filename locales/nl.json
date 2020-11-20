@@ -135,9 +135,8 @@
       "back_to_blog": "Terug naar {{ title }}",
       "tags": "Tags",
       "article_with_count": {
-        "one": "1 artikel",
-        "other": "{{ count }} artikelen",
-        "zero": "0 artikelen"
+        "one": "{{ count }} artikel",
+        "other": "{{ count }} artikelen"
       }
     },
     "comments": {

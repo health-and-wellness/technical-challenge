@@ -135,8 +135,7 @@
       "back_to_blog": "Kembali ke {{ title }}",
       "tags": "Tanda",
       "article_with_count": {
-        "zero": "0 artikel",
-        "one": "1 artikel",
+        "one": "{{ count }} artikel",
         "other": "{{ count }} artikel"
       }
     },

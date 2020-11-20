@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Debut",
     "theme_author": "Shopify",
-    "theme_version": "17.5.0",
+    "theme_version": "17.6.1",
     "theme_documentation_url": "https:\/\/help.shopify.com\/manual\/using-themes\/themes-by-shopify\/debut",
     "theme_support_url": "https:\/\/support.shopify.com\/"
   },
@@ -955,7 +955,7 @@
           "fi": "Sosiaalisen median tilit",
           "fr": "Médias sociaux",
           "it": "Account social",
-          "ja": "ソーシャルアカウント",
+          "ja": "SNSアカウント",
           "ko": "소셜 계정",
           "nb": "Sosiale kontoer",
           "nl": "Socialmedia-accounts",

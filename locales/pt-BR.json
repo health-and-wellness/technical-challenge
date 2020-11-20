@@ -135,9 +135,8 @@
       "back_to_blog": "Voltar para {{ title }}",
       "tags": "Tag",
       "article_with_count": {
-        "one": "1 artigo",
-        "other": "{{ count }} artigos",
-        "zero": "0 artigo"
+        "one": "{{ count }} artigo",
+        "other": "{{ count }} artigos"
       }
     },
     "comments": {

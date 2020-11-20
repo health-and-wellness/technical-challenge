@@ -160,8 +160,7 @@
       "back_to_blog": "Înapoi la {{ title }}",
       "tags": "Etichete",
       "article_with_count": {
-        "zero": "0 articole",
-        "one": "1 articol",
+        "one": "{{ count }} articol",
         "other": "{{ count }} articole",
         "few": "{{ count }} articole"
       }

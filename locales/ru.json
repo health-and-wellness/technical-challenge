@@ -139,8 +139,7 @@
       "back_to_blog": "Вернуться к {{ title }}",
       "tags": "Теги",
       "article_with_count": {
-        "zero": "Статей нет",
-        "one": "1 статья",
+        "one": "{{ count }} статья",
         "other": "Статей: {{ count }}",
         "few": "Статей: {{ count }}",
         "many": "Статей: {{ count }}"

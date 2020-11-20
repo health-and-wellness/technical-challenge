@@ -162,8 +162,7 @@
       "back_to_blog": "Grįžti į „{{ title }}“",
       "tags": "Žymės",
       "article_with_count": {
-        "zero": "0 straipsnių",
-        "one": "1 straipsnis",
+        "one": "Straipsnių: {{ count }}",
         "other": "{{ count }} straipsniai (-ių)",
         "few": "{{ count }} straipsniai (-ių)",
         "many": "{{ count }} straipsniai (-ių)"
